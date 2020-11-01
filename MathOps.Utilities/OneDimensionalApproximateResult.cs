@@ -1,6 +1,6 @@
 namespace MathOps.Utilities
 {
-    public struct ApproximateResult
+    public struct OneDimensionalApproximateResult
     {
         public decimal Value { get; set; }
         public decimal Arg { get; set; }
