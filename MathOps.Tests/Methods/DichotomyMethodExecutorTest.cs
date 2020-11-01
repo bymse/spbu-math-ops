@@ -4,34 +4,35 @@ using MathOps.Dichotomy;
 using MathOps.Utilities;
 using NUnit.Framework;
 
-namespace MathOps.Tests
+namespace MathOps.Tests.Methods
 {
     [TestFixture]
-    internal class DichotomyMethodExecutorTest : ExecutorTestBase<DichotomyResult, DichotomyIterationInfo>
+    internal class DichotomyMethodExecutorTest : ExecutorTestBase<ApproximateResult, DichotomyIterationInfo>
     {
         private static decimal TestFunction(decimal x) => 2 * x * x - 12 * x;
 
         private const decimal PRECISION = 1;
         private const decimal EPSILON = 0.2M;
         private static readonly Boundaries Boundaries = new Boundaries(0, 10);
-        
-        protected override DichotomyResult ExecuteWithObserver(Action<DichotomyIterationInfo> observer)
+
+        protected override ApproximateResult ExecuteWithObserver(Action<DichotomyIterationInfo> observer)
         {
             var executor = new DichotomyMethodExecutor(TestFunction, observer);
             return executor.ExecuteMethod(PRECISION, EPSILON, Boundaries);
         }
 
-        protected override DichotomyResult ExpectedResult => new DichotomyResult
+        protected override ApproximateResult ExpectedResult => new ApproximateResult
         {
-            ApproximateResult = -17.9586718750M,
-            ApproximateResultArg = 2.85625M, 
+            Value = -17.9586718750M,
+            Arg = 2.85625M,
             IterationsCount = 4,
-            ApproximateResultBoundaries = new Boundaries
+            Boundaries = new Boundaries
             {
                 Left = 2.45M,
                 Right = 3.2625M
             }
         };
+
         protected override IReadOnlyList<DichotomyIterationInfo> ExpectedIterationsList => new[]
         {
             new DichotomyIterationInfo
