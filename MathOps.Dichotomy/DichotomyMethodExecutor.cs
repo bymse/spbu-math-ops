@@ -14,7 +14,7 @@ namespace MathOps.Dichotomy
             this.observer = observer;
         }
 
-        public DichotomyResult ExecuteMethod(decimal precision, decimal epsilon, Boundaries boundaries)
+        public ApproximateResult ExecuteMethod(decimal precision, decimal epsilon, Boundaries boundaries)
         {
             var iterationBoundaries = boundaries;
             for (var iteration = 0;; iteration++)
@@ -48,25 +48,25 @@ namespace MathOps.Dichotomy
             return iterationInfo;
         }
 
-        private bool HasResult(DichotomyIterationInfo iterationInfo, decimal precision, out DichotomyResult result)
+        private bool HasResult(DichotomyIterationInfo iterationInfo, decimal precision, out ApproximateResult result)
         {
             var (left, right) = iterationInfo.NextIterationBoundaries;
 
             var iterationPrecision = Math.Abs(left - right);
             if (iterationPrecision <= precision)
             {
-                result = new DichotomyResult
+                result = new ApproximateResult
                 {
                     IterationsCount = iterationInfo.Iteration + 1,
-                    ApproximateResultBoundaries = iterationInfo.NextIterationBoundaries,
-                    ApproximateResultArg = (left + right) / 2,
+                    Boundaries = iterationInfo.NextIterationBoundaries,
+                    Arg = (left + right) / 2,
                 };
 
-                result.ApproximateResult = function(result.ApproximateResultArg);
+                result.Value = function(result.Arg);
                 return true;
             }
             
-            result = new DichotomyResult();
+            result = new ApproximateResult();
             return false;
         }
 

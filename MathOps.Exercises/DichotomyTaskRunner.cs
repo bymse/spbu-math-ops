@@ -38,12 +38,12 @@ namespace MathOps.Exercises
             LogResult(result);
         }
 
-        private static void LogResult(DichotomyResult result)
+        private static void LogResult(ApproximateResult result)
         {
             Console.WriteLine($"Iterations count: {result.IterationsCount}");
-            Console.WriteLine($"Approximate x: {result.ApproximateResultArg}");
-            Console.WriteLine($"Approximate left boundary: {result.ApproximateResultBoundaries.Right}");
-            Console.WriteLine($"Approximate right boundary: {result.ApproximateResultBoundaries.Right}");
+            Console.WriteLine($"Approximate x: {result.Arg}");
+            Console.WriteLine($"Approximate left boundary: {result.Boundaries.Right}");
+            Console.WriteLine($"Approximate right boundary: {result.Boundaries.Right}");
         }
 
         private static void VerboseObserver(DichotomyIterationInfo iterationInfo)
