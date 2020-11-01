@@ -1,6 +1,6 @@
 using MathOps.Utilities;
 
-namespace Dichotomy
+namespace MathOps.Dichotomy
 {
     public struct DichotomyIterationInfo
     {

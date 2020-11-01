@@ -1,21 +1,20 @@
 ﻿using System;
 using MathOps.Utilities;
 
-namespace Dichotomy
+namespace MathOps.Dichotomy
 {
     public class DichotomyMethodExecutor
     {
         private readonly Func<decimal, decimal> function;
-        private readonly Action<DichotomyIterationInfo> iterationObserver;
+        private readonly Action<DichotomyIterationInfo> observer;
 
-        public DichotomyMethodExecutor(Func<decimal, decimal> function,
-            Action<DichotomyIterationInfo> iterationObserver = null)
+        public DichotomyMethodExecutor(Func<decimal, decimal> function, Action<DichotomyIterationInfo> observer)
         {
             this.function = function;
-            this.iterationObserver = iterationObserver ?? (v => { });
+            this.observer = observer;
         }
 
-        public DichotomyResult Execute(decimal precision, decimal epsilon, Boundaries boundaries)
+        public DichotomyResult ExecuteMethod(decimal precision, decimal epsilon, Boundaries boundaries)
         {
             var iterationBoundaries = boundaries;
             for (var iteration = 0;; iteration++)
@@ -45,7 +44,7 @@ namespace Dichotomy
             
             iterationInfo.NextIterationBoundaries = BuildNextIterationBoundaries(boundaries, iterationInfo);
             
-            iterationObserver(iterationInfo);
+            observer(iterationInfo);
             return iterationInfo;
         }
 

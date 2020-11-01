@@ -1,5 +1,5 @@
 using System;
-using Dichotomy;
+using MathOps.Dichotomy;
 using MathOps.Utilities;
 using Newtonsoft.Json;
 using static MathOps.Exercises.ExerciseConsole;
@@ -9,7 +9,7 @@ namespace MathOps.Exercises
     public static class DichotomyTaskRunner
     {
         public static void Run() => ExecuteInLoopWithPoll(RunInner);
-        
+
 
         private static void RunInner()
         {
@@ -32,9 +32,9 @@ namespace MathOps.Exercises
             var executor = new DichotomyMethodExecutor(Function,
                 verbose
                     ? VerboseObserver
-                    : (Action<DichotomyIterationInfo>) null);
+                    : (Action<DichotomyIterationInfo>) (info => { }));
 
-            var result = executor.Execute(l, epsilon, new Boundaries(left, right));
+            var result = executor.ExecuteMethod(l, epsilon, new Boundaries(left, right));
             LogResult(result);
         }
 
