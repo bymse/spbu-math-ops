@@ -40,6 +40,7 @@ namespace MathOps.Exercises
         {
             Console.WriteLine($"Iterations count: {result.IterationsCount}");
             Console.WriteLine($"Approximate x: {result.Arg}");
+            Console.WriteLine($"Function value: {result.Value}");
             Console.WriteLine($"Approximate left boundary: {result.Boundaries.Right}");
             Console.WriteLine($"Approximate right boundary: {result.Boundaries.Right}");
         }
