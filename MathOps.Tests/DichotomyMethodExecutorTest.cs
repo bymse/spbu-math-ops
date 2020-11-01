@@ -1,66 +1,38 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
+using MathOps.Dichotomy;
 using MathOps.Utilities;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
-namespace Dichotomy
+namespace MathOps.Tests
 {
     [TestFixture]
-    internal class ExecutorTests
+    internal class DichotomyMethodExecutorTest : ExecutorTestBase<DichotomyResult, DichotomyIterationInfo>
     {
         private static decimal TestFunction(decimal x) => 2 * x * x - 12 * x;
 
         private const decimal PRECISION = 1;
         private const decimal EPSILON = 0.2M;
-
         private static readonly Boundaries Boundaries = new Boundaries(0, 10);
-
-        [TestCase(TestName = "Iterations test based on example from book")]
-        public void TestResult()
-        {
-            var expectedResult = new DichotomyResult
-            {
-                ApproximateResult = -17.9586718750M,
-                ApproximateResultArg = 2.85625M, 
-                IterationsCount = 4,
-                ApproximateResultBoundaries = new Boundaries
-                {
-                    Left = 2.45M,
-                    Right = 3.2625M
-                }
-            };
-            var executor = new DichotomyMethodExecutor(TestFunction);
-            var result = executor.Execute(PRECISION, EPSILON, Boundaries);
-
-            result.Should().Be(expectedResult);
-        }
         
-        [TestCase(TestName = "Iterations test based on example from book")]
-        public void TestIterations()
+        protected override DichotomyResult ExecuteWithObserver(Action<DichotomyIterationInfo> observer)
         {
-            var executor = new DichotomyMethodExecutor(TestFunction, 
-                BuildIterationsTester(ExpectedIterationsList)
-            );
-
-            executor.Execute(PRECISION, EPSILON, Boundaries);
+            var executor = new DichotomyMethodExecutor(TestFunction, observer);
+            return executor.ExecuteMethod(PRECISION, EPSILON, Boundaries);
         }
 
-        private static Action<DichotomyIterationInfo> BuildIterationsTester(
-            IReadOnlyList<DichotomyIterationInfo> expectedValues)
+        protected override DichotomyResult ExpectedResult => new DichotomyResult
         {
-            var index = 0;
-            return actualValue =>
+            ApproximateResult = -17.9586718750M,
+            ApproximateResultArg = 2.85625M, 
+            IterationsCount = 4,
+            ApproximateResultBoundaries = new Boundaries
             {
-                Assert.Less(index, expectedValues.Count);
-                actualValue.Should().Be(expectedValues[index]);
-                index++;
-            };
-        }
-
-        private static readonly IReadOnlyList<DichotomyIterationInfo> ExpectedIterationsList = new[]
+                Left = 2.45M,
+                Right = 3.2625M
+            }
+        };
+        protected override IReadOnlyList<DichotomyIterationInfo> ExpectedIterationsList => new[]
         {
             new DichotomyIterationInfo
             {
