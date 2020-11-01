@@ -18,7 +18,7 @@ namespace MathOps.GoldenSectionSearch
             this.observer = observer;
         }
 
-        public ApproximateResult Execute(decimal precision, Boundaries boundaries)
+        public OneDimensionalApproximateResult Execute(decimal precision, Boundaries boundaries)
         {
             var iterationModel = HandleFirstIteration(boundaries);
             for (var iteration = 1;; iteration++)
@@ -33,13 +33,13 @@ namespace MathOps.GoldenSectionSearch
             }
         }
 
-        private bool HasResult(GoldenSectionSearchIteration iteration, decimal precision, out ApproximateResult result)
+        private bool HasResult(GoldenSectionSearchIteration iteration, decimal precision, out OneDimensionalApproximateResult result)
         {
             var (left, right) = iteration.NextBoundaries;
             var boundariesDiff = Math.Abs(left - right);
             if (boundariesDiff <= precision)
             {
-                result = new ApproximateResult
+                result = new OneDimensionalApproximateResult
                 {
                     Arg = (left + right) / 2,
                     Boundaries = iteration.NextBoundaries,
@@ -51,7 +51,7 @@ namespace MathOps.GoldenSectionSearch
                 return true;
             }
 
-            result = new ApproximateResult();
+            result = new OneDimensionalApproximateResult();
             return false;
         }
 

@@ -36,7 +36,7 @@ namespace MathOps.Exercises
             return answer.Equals("y", StringComparison.OrdinalIgnoreCase);
         }
 
-        public static void WriteResult(ApproximateResult result)
+        public static void WriteResult(OneDimensionalApproximateResult result)
         {
             Console.WriteLine($"Iterations count: {result.IterationsCount}");
             Console.WriteLine($"Approximate x: {result.Arg}");
