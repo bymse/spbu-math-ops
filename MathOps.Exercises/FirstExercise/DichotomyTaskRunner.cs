@@ -1,16 +1,14 @@
 using System;
 using MathOps.Dichotomy;
 using MathOps.Utilities;
-using Newtonsoft.Json;
 using static MathOps.Exercises.ExerciseConsole;
 
-namespace MathOps.Exercises
+namespace MathOps.Exercises.FirstExercise
 {
     public static class DichotomyTaskRunner
     {
         public static void Run() => ExecuteInLoopWithPoll(RunInner);
-
-
+        
         private static void RunInner()
         {
             var a = GetUserDouble("a");
@@ -35,20 +33,7 @@ namespace MathOps.Exercises
                     : (Action<DichotomyIterationInfo>) (info => { }));
 
             var result = executor.ExecuteMethod(l, epsilon, new Boundaries(left, right));
-            LogResult(result);
-        }
-
-        private static void LogResult(ApproximateResult result)
-        {
-            Console.WriteLine($"Iterations count: {result.IterationsCount}");
-            Console.WriteLine($"Approximate x: {result.Arg}");
-            Console.WriteLine($"Approximate left boundary: {result.Boundaries.Right}");
-            Console.WriteLine($"Approximate right boundary: {result.Boundaries.Right}");
-        }
-
-        private static void VerboseObserver(DichotomyIterationInfo iterationInfo)
-        {
-            Console.WriteLine(JsonConvert.SerializeObject(iterationInfo, Formatting.Indented));
+            WriteResult(result);
         }
     }
 }

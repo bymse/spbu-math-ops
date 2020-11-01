@@ -1,4 +1,6 @@
 using System;
+using MathOps.Utilities;
+using Newtonsoft.Json;
 
 namespace MathOps.Exercises
 {
@@ -32,6 +34,19 @@ namespace MathOps.Exercises
             Console.Write("Use verbose logging (y/n): ");
             var answer = Console.ReadLine() ?? "n";
             return answer.Equals("y", StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static void WriteResult(ApproximateResult result)
+        {
+            Console.WriteLine($"Iterations count: {result.IterationsCount}");
+            Console.WriteLine($"Approximate x: {result.Arg}");
+            Console.WriteLine($"Approximate left boundary: {result.Boundaries.Right}");
+            Console.WriteLine($"Approximate right boundary: {result.Boundaries.Right}");
+        }
+
+        public static void VerboseObserver<T>(T iterationInfo)
+        {
+            Console.WriteLine(JsonConvert.SerializeObject(iterationInfo, Formatting.Indented));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using MathOps.Exercises.FirstExercise;
 
 namespace MathOps.Exercises
 {
@@ -22,6 +23,7 @@ namespace MathOps.Exercises
         private static void FirstExercise()
         {
             Console.WriteLine("1. Dichotomy");
+            Console.WriteLine("2. Golden-section search");
 
             Console.Write("Enter task: ");
             var numb = int.Parse(Console.ReadLine() ?? "1");
@@ -29,6 +31,9 @@ namespace MathOps.Exercises
             {
                 case 1:
                     DichotomyTaskRunner.Run();
+                    break;
+                case 2:
+                    GoldenSectionSearchTaskRunner.Run();
                     break;
                 default:
                     throw new ArgumentException();
