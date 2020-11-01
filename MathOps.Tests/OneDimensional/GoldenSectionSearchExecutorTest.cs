@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using MathOps.GoldenSectionSearch;
 using MathOps.Utilities;
 
-namespace MathOps.Tests.Methods
+namespace MathOps.Tests.OneDimensional
 {
     public class GoldenSectionSearchExecutorTest
-        : ExecutorTestBase<ApproximateResult, GoldenSectionSearchIteration>
+        : ExecutorTestBase<OneDimensionalApproximateResult, GoldenSectionSearchIteration>
     {
         private static decimal TestFunction(decimal x) => 2 * x * x - 12 * x;
         private static readonly Boundaries Boundaries = new Boundaries(0, 10);
         private const decimal PRECISION = 1;
 
-        protected override ApproximateResult ExpectedResult => new ApproximateResult
+        protected override OneDimensionalApproximateResult ExpectedResult => new OneDimensionalApproximateResult
         {
             IterationsCount = 5,
             Arg = 2.81M,
@@ -70,7 +70,7 @@ namespace MathOps.Tests.Methods
             },
         };
 
-        protected override ApproximateResult ExecuteWithObserver(Action<GoldenSectionSearchIteration> observer)
+        protected override OneDimensionalApproximateResult ExecuteWithObserver(Action<GoldenSectionSearchIteration> observer)
         {
             return new GoldenSectionSearchExecutor(TestFunction, observer).Execute(PRECISION, Boundaries);
         }

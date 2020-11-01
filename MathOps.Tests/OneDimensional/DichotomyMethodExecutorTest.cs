@@ -4,10 +4,10 @@ using MathOps.Dichotomy;
 using MathOps.Utilities;
 using NUnit.Framework;
 
-namespace MathOps.Tests.Methods
+namespace MathOps.Tests.OneDimensional
 {
     [TestFixture]
-    internal class DichotomyMethodExecutorTest : ExecutorTestBase<ApproximateResult, DichotomyIterationInfo>
+    internal class DichotomyMethodExecutorTest : ExecutorTestBase<OneDimensionalApproximateResult, DichotomyIterationInfo>
     {
         private static decimal TestFunction(decimal x) => 2 * x * x - 12 * x;
 
@@ -15,13 +15,13 @@ namespace MathOps.Tests.Methods
         private const decimal EPSILON = 0.2M;
         private static readonly Boundaries Boundaries = new Boundaries(0, 10);
 
-        protected override ApproximateResult ExecuteWithObserver(Action<DichotomyIterationInfo> observer)
+        protected override OneDimensionalApproximateResult ExecuteWithObserver(Action<DichotomyIterationInfo> observer)
         {
             var executor = new DichotomyMethodExecutor(TestFunction, observer);
             return executor.ExecuteMethod(PRECISION, EPSILON, Boundaries);
         }
 
-        protected override ApproximateResult ExpectedResult => new ApproximateResult
+        protected override OneDimensionalApproximateResult ExpectedResult => new OneDimensionalApproximateResult
         {
             Value = -17.9586718750M,
             Arg = 2.85625M,
