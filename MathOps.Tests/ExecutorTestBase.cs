@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace MathOps.Tests
@@ -13,8 +14,13 @@ namespace MathOps.Tests
 
         protected abstract TResult ExecuteWithObserver(Action<TIteration> observer);
 
-        [TestCase(TestName = "Iterations test based on example from book")]
-        public void TestResult() => ExecuteWithObserver(v => {}).Should().Be(ExpectedResult);
+        [TestCase(TestName = "Result test based on example from book")]
+        public void TestResult()
+        {
+            var result = ExecuteWithObserver(v => { });
+            result.Should().Be(ExpectedResult);
+            Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+        }
 
         [TestCase(TestName = "Iterations test based on example from book")]
         public void TestIterations() => ExecuteWithObserver(BuildIterationsTester(ExpectedIterationsList));
