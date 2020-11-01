@@ -5,9 +5,28 @@ using MathOps.Utilities;
 
 namespace MathOps.Tests.MultiDimensional
 {
-    public class
-        NelderMeadMethodExecutorTest : ExecutorTestBase<TwoDimensionalApproximateResult, NelderMeadMethodIteration>
+    public class NelderMeadMethodExecutorTest
+        : ExecutorTestBase<TwoDimensionalApproximateResult, NelderMeadMethodIteration>
     {
+
+        private const decimal REFLECTION_COEFF = 1;
+        private const decimal CONTRACTION_COEFF = 0.5M;
+        private const decimal EXPANSION_COEFF = 2M;
+        private const decimal BOUNDARY_COEFF = 0.2M;
+        
+        private static decimal TestFunction(Vector2 args)
+        {
+            var (first, second) = args;
+            return 4 * (first - 5) * (first - 5) + (second - 6) * (second - 6);
+        }
+
+        private static readonly IList<Vector2> StartVertexes = new[]
+        {
+            new Vector2(8, 9),
+            new Vector2(10, 11),
+            new Vector2(8, 11), 
+        };
+
         protected override TwoDimensionalApproximateResult ExpectedResult => new TwoDimensionalApproximateResult
         {
             IterationsCount = 7,
@@ -124,7 +143,12 @@ namespace MathOps.Tests.MultiDimensional
         protected override TwoDimensionalApproximateResult ExecuteWithObserver(
             Action<NelderMeadMethodIteration> observer)
         {
-            throw new NotImplementedException();
+            return new NelderMeadMethodExecutor(TestFunction, observer)
+                .Execute(StartVertexes,
+                    REFLECTION_COEFF,
+                    CONTRACTION_COEFF,
+                    EXPANSION_COEFF,
+                    BOUNDARY_COEFF);
         }
     }
 }
