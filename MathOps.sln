@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathOps.Utilities", "MathOp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathOps.Dichotomy", "MathOps.Dichotomy\MathOps.Dichotomy.csproj", "{A5752D9F-4D13-405C-BF0B-4FDC4C9F085F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathOps.GoldenSectionSearch", "MathOps.GoldenSectionSearch\MathOps.GoldenSectionSearch.csproj", "{14B84BE3-6EFF-4A7E-8F75-D8DD06258B13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathOps.Tests", "MathOps.Tests\MathOps.Tests.csproj", "{CFEF70AA-0819-4041-9503-10736558172B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{A5752D9F-4D13-405C-BF0B-4FDC4C9F085F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5752D9F-4D13-405C-BF0B-4FDC4C9F085F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5752D9F-4D13-405C-BF0B-4FDC4C9F085F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14B84BE3-6EFF-4A7E-8F75-D8DD06258B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14B84BE3-6EFF-4A7E-8F75-D8DD06258B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14B84BE3-6EFF-4A7E-8F75-D8DD06258B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14B84BE3-6EFF-4A7E-8F75-D8DD06258B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFEF70AA-0819-4041-9503-10736558172B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFEF70AA-0819-4041-9503-10736558172B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFEF70AA-0819-4041-9503-10736558172B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFEF70AA-0819-4041-9503-10736558172B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
