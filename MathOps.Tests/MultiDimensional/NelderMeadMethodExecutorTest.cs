@@ -144,10 +144,12 @@ namespace MathOps.Tests.MultiDimensional
             Action<NelderMeadMethodIteration> observer)
         {
             return new NelderMeadMethodExecutor(TestFunction, observer)
-                .Execute(StartVertexes,
-                    REFLECTION_COEFF,
-                    CONTRACTION_COEFF,
-                    EXPANSION_COEFF,
+                .Execute(StartVertexes, new NelderMeadMethodCoeffs
+                    {
+                        ReflectionCoeff = REFLECTION_COEFF,
+                        ContractionCoeff = CONTRACTION_COEFF,
+                        ExpansionCoeff = EXPANSION_COEFF
+                    },
                     BOUNDARY_COEFF);
         }
     }

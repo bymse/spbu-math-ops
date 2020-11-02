@@ -16,10 +16,8 @@ namespace MathOps.NelderMeadMethod
         }
 
         public TwoDimensionalApproximateResult Execute(
-            IList<Vector2> startVertexes,
-            decimal reflectionCoeff,
-            decimal contractionCoeff,
-            decimal expansionCoeff,
+            IReadOnlyList<Vector2> startVertexes,
+            NelderMeadMethodCoeffs coeffs,
             decimal boundaryCoeff)
         {
             
