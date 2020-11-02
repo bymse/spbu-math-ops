@@ -18,7 +18,7 @@ namespace MathOps.Tests
         public void TestResult()
         {
             var result = ExecuteWithObserver(v => { });
-            result.Should().Be(ExpectedResult);
+            result.Should().BeEquivalentTo(ExpectedResult);
             Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
         }
 
@@ -32,7 +32,7 @@ namespace MathOps.Tests
             return actualValue =>
             {
                 Assert.Less(index, expectedValues.Count);
-                actualValue.Should().Be(expectedValues[index]);
+                actualValue.Should().BeEquivalentTo(expectedValues[index]);
                 index++;
             };
         }

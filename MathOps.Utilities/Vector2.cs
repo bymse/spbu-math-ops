@@ -9,6 +9,9 @@ namespace MathOps.Utilities
 
         public void Deconstruct(out decimal first, out decimal second) => (first, second) = (First, Second);
 
+        public static bool operator ==(Vector2 left, Vector2 right) => left.Equals(right); 
+        public static bool operator !=(Vector2 left, Vector2 right) => !left.Equals(right);
+        
         public static Vector2 operator *(decimal val, Vector2 vector)
         {
             var (first, second) = vector;
