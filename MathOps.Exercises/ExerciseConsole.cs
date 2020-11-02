@@ -36,6 +36,11 @@ namespace MathOps.Exercises
             return answer.Equals("y", StringComparison.OrdinalIgnoreCase);
         }
 
+        public static int GetNumberInput()
+        {
+            return int.Parse(Console.ReadLine() ?? "1");
+        } 
+
         public static void WriteResult(OneDimensionalApproximateResult result)
         {
             Console.WriteLine($"Iterations count: {result.IterationsCount}");
@@ -43,6 +48,13 @@ namespace MathOps.Exercises
             Console.WriteLine($"Function value: {result.Value}");
             Console.WriteLine($"Approximate left boundary: {result.Boundaries.Right}");
             Console.WriteLine($"Approximate right boundary: {result.Boundaries.Right}");
+        }
+        
+        public static void WriteResult(TwoDimensionalApproximateResult result)
+        {
+            Console.WriteLine($"Iterations count: {result.IterationsCount}");
+            Console.WriteLine($"Approximate x: {result.Arg}");
+            Console.WriteLine($"Function value: {result.Value}"); ;
         }
 
         public static void VerboseObserver<T>(T iterationInfo)

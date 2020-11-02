@@ -1,6 +1,8 @@
 namespace MathOps.Utilities
 {
+#pragma warning disable 660,661
     public struct Vector2 
+#pragma warning restore 660,661
     {
         public Vector2(decimal first, decimal second) => (First, Second) = (first, second);
         
