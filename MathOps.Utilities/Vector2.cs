@@ -1,3 +1,5 @@
+using System;
+
 namespace MathOps.Utilities
 {
 #pragma warning disable 660,661
@@ -8,6 +10,8 @@ namespace MathOps.Utilities
         
         public decimal First { get; private set; }
         public decimal Second { get; private set; }
+
+        public decimal Norm() => (decimal) Math.Sqrt((double) (First * First + Second * Second));
 
         public void Deconstruct(out decimal first, out decimal second) => (first, second) = (First, Second);
 

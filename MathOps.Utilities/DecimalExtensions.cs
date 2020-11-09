@@ -6,7 +6,7 @@ namespace MathOps.Utilities
     {
         public static decimal RoundTo(this decimal @decimal, int precision)
         {
-            return Math.Round(@decimal, precision);
+            return Math.Round(@decimal, precision, MidpointRounding.ToZero);
         }
     }
 }
