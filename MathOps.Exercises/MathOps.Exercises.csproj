@@ -6,9 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MathOps.Dichotomy\MathOps.Dichotomy.csproj" />
-      <ProjectReference Include="..\MathOps.GoldenSectionSearch\MathOps.GoldenSectionSearch.csproj" />
-      <ProjectReference Include="..\MathOps.NelderMeadMethod\MathOps.NelderMeadMethod.csproj" />
+      <ProjectReference Include="..\MathOps.Methods\MathOps.Methods.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 using System;
-using MathOps.GoldenSectionSearch;
+using MathOps.Methods.GoldenSectionSearch;
 using MathOps.Utilities;
 using static MathOps.Exercises.ExerciseConsole;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MathOps.Utilities;
 
-namespace MathOps.NelderMeadMethod
+namespace MathOps.Methods.NelderMeadMethod
 {
     public class NelderMeadMethodExecutor
     {

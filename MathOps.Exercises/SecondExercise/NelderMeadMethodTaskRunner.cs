@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using MathOps.NelderMeadMethod;
+using MathOps.Methods.NelderMeadMethod;
 using MathOps.Utilities;
 using static MathOps.Exercises.ExerciseConsole;
 

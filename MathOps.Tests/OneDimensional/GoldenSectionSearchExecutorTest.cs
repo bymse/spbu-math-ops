@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using MathOps.GoldenSectionSearch;
+using MathOps.Methods.GoldenSectionSearch;
 using MathOps.Utilities;
 
 namespace MathOps.Tests.OneDimensional

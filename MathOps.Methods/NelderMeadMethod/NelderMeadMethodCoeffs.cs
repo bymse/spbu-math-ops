@@ -1,4 +1,4 @@
-namespace MathOps.NelderMeadMethod
+namespace MathOps.Methods.NelderMeadMethod
 {
     public class NelderMeadMethodCoeffs
     {

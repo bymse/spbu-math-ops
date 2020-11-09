@@ -4,7 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using MathOps.Utilities;
 
-namespace MathOps.NelderMeadMethod
+namespace MathOps.Methods.NelderMeadMethod
 {
     internal class VertexesModificationsHandler
     {

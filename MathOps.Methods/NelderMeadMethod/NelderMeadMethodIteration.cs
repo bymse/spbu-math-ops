@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MathOps.Utilities;
 
-namespace MathOps.NelderMeadMethod
+namespace MathOps.Methods.NelderMeadMethod
 {
     public class NelderMeadMethodIteration
     {

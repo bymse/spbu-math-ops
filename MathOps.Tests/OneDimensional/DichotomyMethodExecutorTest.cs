@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using MathOps.Dichotomy;
+using MathOps.Methods.Dichotomy;
 using MathOps.Utilities;
 using NUnit.Framework;
 

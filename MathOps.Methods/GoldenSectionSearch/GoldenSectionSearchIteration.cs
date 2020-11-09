@@ -1,6 +1,6 @@
 using MathOps.Utilities;
 
-namespace MathOps.GoldenSectionSearch
+namespace MathOps.Methods.GoldenSectionSearch
 {
     public struct GoldenSectionSearchIteration
     {

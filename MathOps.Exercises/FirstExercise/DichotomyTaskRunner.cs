@@ -1,5 +1,5 @@
 using System;
-using MathOps.Dichotomy;
+using MathOps.Methods.Dichotomy;
 using MathOps.Utilities;
 using static MathOps.Exercises.ExerciseConsole;
 
