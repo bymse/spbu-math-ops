@@ -17,6 +17,15 @@ namespace MathOps.Utilities
 
         public static bool operator ==(Vector2 left, Vector2 right) => left.Equals(right); 
         public static bool operator !=(Vector2 left, Vector2 right) => !left.Equals(right);
+
+        public static Vector2 operator -(Vector2 vector2)
+        {
+            return new Vector2
+            {
+                First = -vector2.First,
+                Second = -vector2.Second
+            };
+        }
         
         public static Vector2 operator *(decimal val, Vector2 vector)
         {
