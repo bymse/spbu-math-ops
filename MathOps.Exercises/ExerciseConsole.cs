@@ -39,7 +39,14 @@ namespace MathOps.Exercises
         public static int GetNumberInput()
         {
             return int.Parse(Console.ReadLine() ?? "1");
-        } 
+        }
+
+        public static Boundaries RequestBoundaries()
+        {
+            var left = GetUserDecimal("left step boundary");
+            var right = GetUserDecimal("right step boundary");
+            return new Boundaries(left, right);
+        }
 
         public static void WriteResult(OneDimensionalApproximateResult result)
         {
@@ -53,7 +60,7 @@ namespace MathOps.Exercises
         public static void WriteResult(TwoDimensionalApproximateResult result)
         {
             Console.WriteLine($"Iterations count: {result.IterationsCount}");
-            Console.WriteLine($"Approximate x: {result.Arg}");
+            Console.WriteLine($"Approximate arg: {result.Arg}");
             Console.WriteLine($"Function value: {result.Value}"); ;
         }
 
