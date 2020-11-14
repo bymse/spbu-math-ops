@@ -8,5 +8,7 @@ namespace MathOps.Utilities
         {
             return Math.Round(@decimal, precision, MidpointRounding.ToZero);
         }
+
+        public static decimal Square(this decimal @decimal) => @decimal * @decimal;
     }
 }
