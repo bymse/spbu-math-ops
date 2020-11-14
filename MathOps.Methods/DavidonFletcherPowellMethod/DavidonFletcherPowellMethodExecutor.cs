@@ -1,10 +1,12 @@
 using System;
+using MathOps.Methods.GoldenSectionSearch;
 using MathOps.Utilities;
 
 namespace MathOps.Methods.DavidonFletcherPowellMethod
 {
     public class DavidonFletcherPowellMethodExecutor
     {
+        private readonly Boundaries stepBoundaries;
         private readonly Func<Vector2, decimal> function;
         private readonly TwoDimensionalGradient gradient;
         private readonly Func<Vector2, Vector2, Vector2Matrix, decimal> stepFunction;
@@ -14,12 +16,30 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
         public DavidonFletcherPowellMethodExecutor(
             Func<Vector2, decimal> function,
             TwoDimensionalGradient gradient,
+            Action<DavidonFletcherPowellMethodIteration> observer,
+            Boundaries stepBoundaries,
+            int precision = 5) : this(function, gradient, observer, precision)
+        {
+            this.stepBoundaries = stepBoundaries;
+        }
+
+        public DavidonFletcherPowellMethodExecutor(
+            Func<Vector2, decimal> function,
+            TwoDimensionalGradient gradient,
+            Action<DavidonFletcherPowellMethodIteration> observer,
             Func<Vector2, Vector2, Vector2Matrix, decimal> stepFunction,
+            int precision = 5) : this(function, gradient, observer, precision)
+        {
+            this.stepFunction = (v, a, b) => stepFunction(v, a, b).RoundTo(precision);
+        }
+
+        public DavidonFletcherPowellMethodExecutor(
+            Func<Vector2, decimal> function,
+            TwoDimensionalGradient gradient,
             Action<DavidonFletcherPowellMethodIteration> observer,
             int precision = 5)
         {
             this.function = v => function(v).RoundTo(precision);
-            this.stepFunction = (v, a, b) => stepFunction(v, a, b).RoundTo(precision);
             this.observer = observer;
             this.precision = precision;
             this.gradient = gradient;
@@ -58,12 +78,12 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
                 result = HandleSecondPart(model, prevIteration, secondEpsilon, skipMatrix);
 
                 observer(model);
-                
+
                 if (hadResult && result != null)
                     return result;
 
                 hadResult = result != null;
-                
+
                 prevIteration = model;
             }
         }
@@ -116,14 +136,20 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
                 iteration.IterationMatrix = prevIteration.IterationMatrix;
             }
 
-            iteration.Step = stepFunction(iteration.IterationArg, iteration.GradientIterationValue,
-                iteration.IterationMatrix);
+            iteration.Step = stepFunction?.Invoke(
+                                 iteration.IterationArg,
+                                 iteration.GradientIterationValue,
+                                 iteration.IterationMatrix)
+                             
+                             ?? GetStepValue(iteration.IterationArg,
+                                 iteration.GradientIterationValue,
+                                 iteration.IterationMatrix, secondEpsilon);
 
             iteration.NextIterationArg = iteration.IterationArg -
                                          iteration.IterationMatrix * iteration.Step *
                                          iteration.GradientIterationValue;
-            
-            iteration.NextIterationArg = new Vector2(iteration.NextIterationArg.First.RoundTo(precision), 
+
+            iteration.NextIterationArg = new Vector2(iteration.NextIterationArg.First.RoundTo(precision),
                 iteration.NextIterationArg.Second.RoundTo(precision));
 
             if ((iteration.NextIterationArg - iteration.IterationArg).Norm() < secondEpsilon
@@ -155,24 +181,37 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
             var leftPart = argsDiff.MultiplyByTransposed(argsDiff, precision) /
                            argsDiff.TransposeAndMultiply(gradDiff, precision);
 
-            var rightPartNumerator = (prevIteration.IterationMatrix * gradDiff.MultiplyByTransposed(gradDiff, precision) * prevIteration.IterationMatrix);
+            var rightPartNumerator = (prevIteration.IterationMatrix *
+                                      gradDiff.MultiplyByTransposed(gradDiff, precision) *
+                                      prevIteration.IterationMatrix);
 
             var m = prevIteration.IterationMatrix;
-            
-            var rightPartDenominator = new Vector2(gradDiff.First * m.FirstLine.First + gradDiff.Second * m.SecondLine.First, 
-                gradDiff.First * m.FirstLine.Second + gradDiff.Second * m.SecondLine.Second).TransposeAndMultiply(gradDiff, precision);
+
+            var rightPartDenominator = new Vector2(
+                    gradDiff.First * m.FirstLine.First + gradDiff.Second * m.SecondLine.First,
+                    gradDiff.First * m.FirstLine.Second + gradDiff.Second * m.SecondLine.Second)
+                .TransposeAndMultiply(gradDiff, precision);
 
             iteration.IterationAdditionalMatrix = leftPart - (rightPartNumerator / rightPartDenominator);
 
             iteration.IterationAdditionalMatrix.FirstLine
-                = new Vector2(iteration.IterationAdditionalMatrix.FirstLine.First.RoundTo(precision), 
+                = new Vector2(iteration.IterationAdditionalMatrix.FirstLine.First.RoundTo(precision),
                     iteration.IterationAdditionalMatrix.FirstLine.Second.RoundTo(precision));
-            
+
             iteration.IterationAdditionalMatrix.SecondLine
-                = new Vector2(iteration.IterationAdditionalMatrix.SecondLine.First.RoundTo(precision), 
+                = new Vector2(iteration.IterationAdditionalMatrix.SecondLine.First.RoundTo(precision),
                     iteration.IterationAdditionalMatrix.SecondLine.Second.RoundTo(precision));
-            
+
             iteration.IterationMatrix = prevIteration.IterationMatrix + iteration.IterationAdditionalMatrix;
+        }
+
+        private decimal GetStepValue(Vector2 arg, Vector2 gradientVal, Vector2Matrix iterationIterationMatrix,
+            decimal epsilon2)
+        {
+            var goldenSectionExecutor = new GoldenSectionSearchExecutor(
+                t => function(arg - t * (iterationIterationMatrix * gradientVal)).RoundTo(precision),
+                iteration => { });
+            return goldenSectionExecutor.Execute(epsilon2 / 2, stepBoundaries).Arg;
         }
     }
 }
