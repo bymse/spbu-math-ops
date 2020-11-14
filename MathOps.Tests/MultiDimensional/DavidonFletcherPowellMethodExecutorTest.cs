@@ -42,7 +42,7 @@ namespace MathOps.Tests.MultiDimensional
             var denominator = 2 * (2 * c.Square() * f.Square() + c.Square() * f * l + c.Square() * l.Square() +
                                    4 * c * d * f * g + c * d * f * m + c * d * g * l + 2 * c * d * l * m +
                                    2 * d.Square() * g.Square() + d.Square() * g * m + d.Square() * m.Square());
-            
+
             return numerator / denominator;
         }
 
@@ -94,7 +94,7 @@ namespace MathOps.Tests.MultiDimensional
         protected override TwoDimensionalApproximateResult ExecuteWithObserver(
             Action<DavidonFletcherPowellMethodIteration> observer)
         {
-            return new DavidonFletcherPowellMethodExecutor(Function, Gradient, StepFunctions, observer)
+            return new DavidonFletcherPowellMethodExecutor(Function, Gradient, observer, StepFunctions)
                 .Execute(StartPoint, FIRST_EPSILON, SECOND_EPSILON, MAX_ITERATIONS_COUNT);
         }
     }

@@ -12,7 +12,7 @@ namespace MathOps.Exercises
             do
             {
                 action();
-                Console.WriteLine("Enter \"q\" for exit to the main menu");
+                Console.WriteLine("Enter \"q\" for exit");
                 @continue = !Console.ReadLine()?.Equals("q", StringComparison.OrdinalIgnoreCase) ?? true;
             } while (@continue);
         }

@@ -1,15 +1,15 @@
 using System;
 using MathOps.Utilities;
 
-namespace MathOps.Exercises.SecondExercise
+namespace MathOps.Exercises.MultiDimensional
 {
-    public static class SecondExerciseFuncs
+    public static class MultiDimensionalFuncs
     {
         public static int GetFuncNumber()
         {
             Console.WriteLine("1. 100 * (x_2 - (x_1)^2 )^2 + (1 - x_1)^2");
             Console.WriteLine("2. ((x_1)^2 + x_2 - 11)^2 + (x_1 + (x_2)^2 - 7)^2");
-            Console.Write("Enter task: ");
+            Console.Write("Enter function number: ");
             return ExerciseConsole.GetNumberInput();
         }
 

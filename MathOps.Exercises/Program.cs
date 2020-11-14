@@ -1,6 +1,6 @@
 ﻿using System;
-using MathOps.Exercises.FirstExercise;
-using MathOps.Exercises.SecondExercise;
+using MathOps.Exercises.MultiDimensional;
+using MathOps.Exercises.OneDimensional;
 
 namespace MathOps.Exercises
 {
@@ -8,6 +8,12 @@ namespace MathOps.Exercises
     {
         public static void Main()
         {
+            ExerciseConsole.ExecuteInLoopWithPoll(Run);
+        }
+
+        private static void Run()
+        {
+            
             Console.WriteLine("1. Dichotomy");
             Console.WriteLine("2. Golden-section search");
             Console.WriteLine("3. Nelder-Mead method");
@@ -28,9 +34,10 @@ namespace MathOps.Exercises
                     NelderMeadMethodTaskRunner.Run();
                     break;
                 case 4:
-                    FastGradientMethodRunner.Run();
+                    new FastGradientMethodRunner().Run();
                     break;
                 case 5:
+                    new FletcherReevesMethodRunner().Run();
                     break;
                 case 6:
                     break;

@@ -1,11 +1,13 @@
 using System;
 using MathOps.Methods.FastGradientMethod;
+using MathOps.Methods.GoldenSectionSearch;
 using MathOps.Utilities;
 
 namespace MathOps.Methods.FletcherReevesMethod
 {
     public class FletcherReevesMethodExecutor
     {
+        private readonly Boundaries stepBoundaries;
         private readonly Func<Vector2, decimal> function;
         private readonly TwoDimensionalGradient gradient;
         private readonly Func<Vector2, Vector2, decimal> stepFunction;
@@ -15,16 +17,32 @@ namespace MathOps.Methods.FletcherReevesMethod
 
         public FletcherReevesMethodExecutor(Func<Vector2, decimal> function,
             TwoDimensionalGradient gradient,
+            Action<FletcherReevesMethodIteration> observer,
+            Boundaries stepBoundaries,
+            int precision = 5) : this(function, gradient, observer, precision)
+        {
+            this.stepBoundaries = stepBoundaries;
+        }
+        
+        public FletcherReevesMethodExecutor(Func<Vector2, decimal> function,
+            TwoDimensionalGradient gradient,
             Func<Vector2, Vector2, decimal> stepFunction,
             Action<FletcherReevesMethodIteration> observer,
             Func<Vector2, decimal> firstStepFunction,
+            int precision = 5) : this(function, gradient, observer, precision)
+        {
+            this.firstStepFunction = (v) => firstStepFunction(v).RoundTo(precision);
+            this.stepFunction = (v, e) => stepFunction(v, e).RoundTo(precision);
+        }
+
+        private FletcherReevesMethodExecutor(Func<Vector2, decimal> function,
+            TwoDimensionalGradient gradient,
+            Action<FletcherReevesMethodIteration> observer,
             int precision = 5)
         {
             this.function = v => function(v).RoundTo(precision);
             this.observer = observer;
-            this.firstStepFunction = (v) => firstStepFunction(v).RoundTo(precision);
             this.precision = precision;
-            this.stepFunction = (v, e) => stepFunction(v, e).RoundTo(precision);
             this.gradient = gradient;
         }
 
@@ -89,8 +107,8 @@ namespace MathOps.Methods.FletcherReevesMethod
             if (iteration.Iteration == 0)
             {
                 iteration.Direction = -iteration.GradientIterationValue;
-
-                iteration.Step = firstStepFunction(prevIteration.NextArg);
+                iteration.Step = firstStepFunction?.Invoke(prevIteration.NextArg)
+                                 ?? GetStepValue(prevIteration.NextArg, iteration.Direction, secondEpsilon);
             }
             else
             {
@@ -100,7 +118,8 @@ namespace MathOps.Methods.FletcherReevesMethod
                 iteration.Direction = -iteration.GradientIterationValue
                                       + iteration.BetaValue.Value * prevIteration.Direction;
 
-                iteration.Step = stepFunction(prevIteration.NextArg, iteration.Direction);
+                iteration.Step = stepFunction?.Invoke(prevIteration.NextArg, iteration.Direction)
+                                 ?? GetStepValue(prevIteration.NextArg, iteration.Direction, secondEpsilon);
             }
 
             iteration.NextArg = prevIteration.NextArg + iteration.Step.Value * iteration.Direction;
@@ -117,6 +136,15 @@ namespace MathOps.Methods.FletcherReevesMethod
             }
 
             return null;
+        }
+
+
+        private decimal GetStepValue(Vector2 arg, Vector2 direction, decimal epsilon2)
+        {
+            var goldenSectionExecutor = new GoldenSectionSearchExecutor(
+                t => function(arg + t * direction).RoundTo(precision),
+                iteration => { });
+            return goldenSectionExecutor.Execute(epsilon2 / 2, stepBoundaries).Arg;
         }
     }
 }

@@ -4,7 +4,7 @@ using MathOps.Methods.NelderMeadMethod;
 using MathOps.Utilities;
 using static MathOps.Exercises.ExerciseConsole;
 
-namespace MathOps.Exercises.SecondExercise
+namespace MathOps.Exercises.MultiDimensional
 {
     public static class NelderMeadMethodTaskRunner
     {
@@ -15,14 +15,14 @@ namespace MathOps.Exercises.SecondExercise
 
         private static void Action()
         {
-            var numb = SecondExerciseFuncs.GetFuncNumber();
+            var numb = MultiDimensionalFuncs.GetFuncNumber();
             switch (numb)
             {
                 case 1:
-                    RunInner(SecondExerciseFuncs.FirstFunc);
+                    RunInner(MultiDimensionalFuncs.FirstFunc);
                     break;
                 case 2:
-                    RunInner(SecondExerciseFuncs.SecondFunc);
+                    RunInner(MultiDimensionalFuncs.SecondFunc);
                     break;
             }
         }

@@ -1,7 +1,7 @@
 using System;
 using MathOps.Utilities;
 
-namespace MathOps.Exercises.SecondExercise
+namespace MathOps.Exercises.MultiDimensional
 {
     public class FastGradientMethodParams
     {

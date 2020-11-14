@@ -1,5 +1,5 @@
 using FluentAssertions;
-using MathOps.Exercises.SecondExercise;
+using MathOps.Exercises.MultiDimensional;
 using MathOps.Utilities;
 using NUnit.Framework;
 
@@ -18,7 +18,7 @@ namespace MathOps.Tests.Exercises
         [Test]
         public void TestFirstFunction()
         {
-            var result = FastGradientMethodRunner.RunForFirst(
+            var result = new FastGradientMethodRunner().RunForFirst(
                 FirstStartPoint, 
                 FIRST_EPSILON, SECOND_EPSILON, MAX_ITERATIONS_COUNT, 
                 new Boundaries(-100, 100));
@@ -30,7 +30,7 @@ namespace MathOps.Tests.Exercises
         [Test]
         public void TestSecondFunction()
         {
-            var result = FastGradientMethodRunner.RunForSecond(
+            var result = new FastGradientMethodRunner().RunForSecond(
                 SecondStartPoint,
                 FIRST_EPSILON, SECOND_EPSILON, MAX_ITERATIONS_COUNT,
                 new Boundaries(-1, 1));
