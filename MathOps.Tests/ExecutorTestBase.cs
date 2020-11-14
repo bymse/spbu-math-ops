@@ -23,7 +23,18 @@ namespace MathOps.Tests
         }
 
         [TestCase(TestName = "Iterations test based on example from book")]
-        public void TestIterations() => ExecuteWithObserver(BuildIterationsTester(ExpectedIterationsList));
+        public void TestIterations()
+        {
+            var count = 0;
+            var tester = BuildIterationsTester(ExpectedIterationsList);
+            ExecuteWithObserver((v) =>
+            {
+                tester(v);
+                count++;
+            });
+
+            count.Should().Be(ExpectedIterationsList.Count);
+        }
 
         private static Action<TIteration> BuildIterationsTester(
             IReadOnlyList<TIteration> expectedValues)

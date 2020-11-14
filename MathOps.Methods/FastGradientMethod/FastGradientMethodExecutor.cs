@@ -42,11 +42,11 @@ namespace MathOps.Methods.FastGradientMethod
                 var result = HandleFirstPart(firstEpsilon, maxIterationsCount, model, iterationArg)
                              ?? HandleSecondPart(secondEpsilon, model, iterationArg);
 
+                observer(model);
                 if (result != null)
                     return result;
 
                 iterationArg = model.NextArg;
-                observer(model);
             }
         }
 

@@ -74,9 +74,9 @@ namespace MathOps.Tests.MultiDimensional
             new FastGradientMethodIteration
             {
                 Iteration = 2,
-                GradientIterationValue = new Vector2(0.24M, 0.2M),
-                Step = 0.24M,
-                NextArg = new Vector2(-0.0176M, 0.032M),
+                GradientIterationValue = new Vector2(0.25311M, 0.21088M),
+                Step = 0.24014M,
+                NextArg = new Vector2(-0.0185890147M, 0.0337061288M),
             },
         };
 
