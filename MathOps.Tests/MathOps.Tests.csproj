@@ -13,6 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MathOps.Exercises\MathOps.Exercises.csproj" />
       <ProjectReference Include="..\MathOps.Methods\MathOps.Methods.csproj" />
       <ProjectReference Include="..\MathOps.Utilities\MathOps.Utilities.csproj" />
     </ItemGroup>

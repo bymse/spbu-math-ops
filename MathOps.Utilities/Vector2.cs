@@ -68,5 +68,10 @@ namespace MathOps.Utilities
                 Second = secondLeft + secondRight
             };
         }
+
+        public override string ToString()
+        {
+            return $"({First};{Second})";
+        }
     }
 }

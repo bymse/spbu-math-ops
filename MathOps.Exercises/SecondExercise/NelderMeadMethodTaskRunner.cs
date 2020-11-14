@@ -10,41 +10,21 @@ namespace MathOps.Exercises.SecondExercise
     {
         public static void Run()
         {
-            Action action = () =>
+            ExecuteInLoopWithPoll(Action);
+        }
+
+        private static void Action()
+        {
+            var numb = SecondExerciseFuncs.GetFuncNumber();
+            switch (numb)
             {
-                Console.WriteLine("1. 100 * (x_2 * (x_1)^2 )^2 + (1 - x_1)^2");
-                Console.WriteLine("2. ((x_1)^2 + x_2 - 11)^2 + (x_1 + (x_2)^2 - 7)^2");
-
-                Console.Write("Enter task: ");
-                var numb = GetNumberInput();
-                switch (numb)
-                {
-                    case 1:
-                        RunInner(vector =>
-                        {
-                            var (first, second) = vector;
-                            var leftPart = second - first * first;
-                            leftPart *= leftPart;
-
-                            var rightPart = 1 - first;
-                            rightPart *= rightPart;
-
-                            return 100 * leftPart + rightPart;
-                        });
-                        break;
-                    case 2:
-                        RunInner(vector =>
-                        {
-                            var (first, second) = vector;
-                            var leftPart = first * first + second - 11;
-                            var rightPart = first + second * second - 7;
-
-                            return leftPart * leftPart + rightPart * rightPart;
-                        });
-                        break;
-                }
-            };
-            ExecuteInLoopWithPoll(action);
+                case 1:
+                    RunInner(SecondExerciseFuncs.FirstFunc);
+                    break;
+                case 2:
+                    RunInner(SecondExerciseFuncs.SecondFunc);
+                    break;
+            }
         }
 
         private static void RunInner(Func<Vector2, decimal> function)
