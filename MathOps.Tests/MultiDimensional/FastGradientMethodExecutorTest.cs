@@ -25,7 +25,7 @@ namespace MathOps.Tests.MultiDimensional
             Second = vector2 => vector2.First + 2 * vector2.Second
         };
 
-        private static readonly Func<Vector2, decimal> StepFunction = vector2 =>
+        private static readonly Func<Vector2, Vector2, decimal> StepFunction = (vector2, _) =>
         {
             var (first, second) = vector2;
             var numeratorLeft = 4 * first + second;
@@ -86,8 +86,8 @@ namespace MathOps.Tests.MultiDimensional
             return new FastGradientMethodExecutor(
                     Function,
                     Gradient,
-                    StepFunction,
-                    observer)
+                    observer,
+                    StepFunction)
                 .Execute(StartPoint, FIRST_EPSILON, SECOND_EPSILON, MAX_ITERATIONS_COUNT);
         }
     }
