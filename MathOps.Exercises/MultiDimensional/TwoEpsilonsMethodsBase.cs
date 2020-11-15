@@ -1,6 +1,5 @@
 using System;
 using MathOps.Utilities;
-using MathOps.Methods.FletcherReevesMethod;
 using static MathOps.Exercises.ExerciseConsole;
 using static MathOps.Exercises.MultiDimensional.MultiDimensionalFuncs;
 
@@ -33,14 +32,14 @@ namespace MathOps.Exercises.MultiDimensional
             WriteResult(result);
         }
 
-        protected abstract TwoDimensionalApproximateResult ExecuteMethod(
+        public TwoDimensionalApproximateResult RunForFirst(
             Vector2 startPoint,
             decimal firstEpsilon,
             decimal secondEpsilon,
             int maxIterationsCount,
-            Boundaries boundaries,
-            Func<Vector2, decimal> function,
-            TwoDimensionalGradient gradient);
+            Boundaries boundaries) =>
+            ExecuteMethod(startPoint, firstEpsilon, secondEpsilon, maxIterationsCount, boundaries, FirstFunc,
+                FirstFuncGradient);
 
         public TwoDimensionalApproximateResult RunForSecond(
             Vector2 startPoint,
@@ -51,13 +50,13 @@ namespace MathOps.Exercises.MultiDimensional
             ExecuteMethod(startPoint, firstEpsilon, secondEpsilon, maxIterationsCount, boundaries, SecondFunc,
                 SecondFuncGradient);
 
-        public TwoDimensionalApproximateResult RunForFirst(
+        protected abstract TwoDimensionalApproximateResult ExecuteMethod(
             Vector2 startPoint,
             decimal firstEpsilon,
             decimal secondEpsilon,
             int maxIterationsCount,
-            Boundaries boundaries) =>
-            ExecuteMethod(startPoint, firstEpsilon, secondEpsilon, maxIterationsCount, boundaries, FirstFunc,
-                FirstFuncGradient);
+            Boundaries boundaries,
+            Func<Vector2, decimal> function,
+            TwoDimensionalGradient gradient);
     }
 }
