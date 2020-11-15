@@ -1,5 +1,4 @@
 using System;
-using MathOps.Methods.FastGradientMethod;
 using MathOps.Methods.GoldenSectionSearch;
 using MathOps.Utilities;
 

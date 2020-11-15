@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using MathOps.Methods.FastGradientMethod;
+using MathOps.Methods.AcceleratedGradientDescent;
 using MathOps.Utilities;
 
 namespace MathOps.Tests.MultiDimensional
 {
     public class FastGradientMethodExecutorTest
-        : ExecutorTestBase<TwoDimensionalApproximateResult, FastGradientMethodIteration>
+        : ExecutorTestBase<TwoDimensionalApproximateResult, AcceleratedGradientDescentIteration>
     {
         private const decimal FIRST_EPSILON = 0.1M;
         private const decimal SECOND_EPSILON = 0.15M;
@@ -55,23 +55,23 @@ namespace MathOps.Tests.MultiDimensional
             Value = 0.0012M
         };
 
-        protected override IReadOnlyList<FastGradientMethodIteration> ExpectedIterationsList => new[]
+        protected override IReadOnlyList<AcceleratedGradientDescentIteration> ExpectedIterationsList => new[]
         {
-            new FastGradientMethodIteration
+            new AcceleratedGradientDescentIteration
             {
                 Iteration = 0,
                 GradientIterationValue = new Vector2(3, 2.5M),
                 Step = 0.24015M,
                 NextArg = new Vector2(-0.220450M, 0.399625M),
             },
-            new FastGradientMethodIteration
+            new AcceleratedGradientDescentIteration
             {
                 Iteration = 1,
                 GradientIterationValue = new Vector2(-0.48217M, 0.57880M),
                 Step = 0.54471M,
                 NextArg = new Vector2(0.0421928207M, 0.0843468520M)
             },
-            new FastGradientMethodIteration
+            new AcceleratedGradientDescentIteration
             {
                 Iteration = 2,
                 GradientIterationValue = new Vector2(0.25311M, 0.21088M),
@@ -81,9 +81,9 @@ namespace MathOps.Tests.MultiDimensional
         };
 
         protected override TwoDimensionalApproximateResult ExecuteWithObserver(
-            Action<FastGradientMethodIteration> observer)
+            Action<AcceleratedGradientDescentIteration> observer)
         {
-            return new FastGradientMethodExecutor(
+            return new AcceleratedGradientDescentExecutor(
                     Function,
                     Gradient,
                     observer,

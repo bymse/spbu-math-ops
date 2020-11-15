@@ -1,8 +1,8 @@
 using MathOps.Utilities;
 
-namespace MathOps.Methods.FastGradientMethod
+namespace MathOps.Methods.AcceleratedGradientDescent
 {
-    public class FastGradientMethodIteration
+    public class AcceleratedGradientDescentIteration
     {
         public int Iteration { get; set; }
         
@@ -11,5 +11,7 @@ namespace MathOps.Methods.FastGradientMethod
         public decimal? Step { get; set; }
         
         public Vector2 NextArg { get; set; }
+        
+        public decimal FuncValue { get; set; }
     }
 }

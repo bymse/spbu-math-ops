@@ -1,10 +1,10 @@
 using System;
-using MathOps.Methods.FastGradientMethod;
+using MathOps.Methods.AcceleratedGradientDescent;
 using MathOps.Utilities;
 
 namespace MathOps.Exercises.MultiDimensional
 {
-    public class FastGradientMethodRunner : TwoEpsilonsMethodsBase
+    public class AcceleratedGradientDescentRunner : TwoEpsilonsMethodsBase<AcceleratedGradientDescentIteration>
     {
         protected override TwoDimensionalApproximateResult ExecuteMethod(
             Vector2 startPoint,
@@ -13,12 +13,13 @@ namespace MathOps.Exercises.MultiDimensional
             int maxIterationsCount,
             Boundaries boundaries,
             Func<Vector2, decimal> function,
-            TwoDimensionalGradient gradient)
+            TwoDimensionalGradient gradient,
+            Action<AcceleratedGradientDescentIteration> observer)
         {
-            return new FastGradientMethodExecutor(
+            return new AcceleratedGradientDescentExecutor(
                     function,
                     gradient,
-                    iteration => { },
+                    observer,
                     boundaries)
                 .Execute(startPoint, firstEpsilon, secondEpsilon, maxIterationsCount);
         }

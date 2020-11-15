@@ -6,8 +6,10 @@ using static MathOps.Exercises.MultiDimensional.MultiDimensionalFuncs;
 
 namespace MathOps.Exercises.MultiDimensional
 {
-    public abstract class TwoEpsilonsMethodsBase
+    public abstract class TwoEpsilonsMethodsBase<T>
     {
+        public Action<T> Observer { get; set; } = obj => { }; 
+        
         public void Run()
         {
             ExecuteInLoopWithPoll(() => RunInner(GetFuncNumber()));
@@ -39,7 +41,7 @@ namespace MathOps.Exercises.MultiDimensional
             int maxIterationsCount,
             Boundaries boundaries) =>
             ExecuteMethod(startPoint, firstEpsilon, secondEpsilon, maxIterationsCount, boundaries, FirstFunc,
-                FirstFuncGradient);
+                FirstFuncGradient, Observer);
 
         public TwoDimensionalApproximateResult RunForSecond(
             Vector2 startPoint,
@@ -48,7 +50,7 @@ namespace MathOps.Exercises.MultiDimensional
             int maxIterationsCount,
             Boundaries boundaries) =>
             ExecuteMethod(startPoint, firstEpsilon, secondEpsilon, maxIterationsCount, boundaries, SecondFunc,
-                SecondFuncGradient);
+                SecondFuncGradient, Observer);
 
         protected abstract TwoDimensionalApproximateResult ExecuteMethod(
             Vector2 startPoint,
@@ -57,6 +59,7 @@ namespace MathOps.Exercises.MultiDimensional
             int maxIterationsCount,
             Boundaries boundaries,
             Func<Vector2, decimal> function,
-            TwoDimensionalGradient gradient);
+            TwoDimensionalGradient gradient,
+            Action<T> observer);
     }
 }

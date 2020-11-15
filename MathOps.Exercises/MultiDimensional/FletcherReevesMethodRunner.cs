@@ -4,7 +4,7 @@ using MathOps.Utilities;
 
 namespace MathOps.Exercises.MultiDimensional
 {
-    public class FletcherReevesMethodRunner : TwoEpsilonsMethodsBase
+    public class FletcherReevesMethodRunner : TwoEpsilonsMethodsBase<FletcherReevesMethodIteration>
     {
         protected override TwoDimensionalApproximateResult ExecuteMethod(
             Vector2 startPoint,
@@ -13,12 +13,13 @@ namespace MathOps.Exercises.MultiDimensional
             int maxIterationsCount,
             Boundaries boundaries,
             Func<Vector2, decimal> function,
-            TwoDimensionalGradient gradient)
+            TwoDimensionalGradient gradient,
+            Action<FletcherReevesMethodIteration> observer)
         {
             return new FletcherReevesMethodExecutor(
                     function,
                     gradient,
-                    iteration => { },
+                    observer,
                     boundaries)
                 .Execute(startPoint, firstEpsilon, secondEpsilon, maxIterationsCount);
         }

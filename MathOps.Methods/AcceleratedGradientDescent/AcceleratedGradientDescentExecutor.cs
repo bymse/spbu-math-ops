@@ -2,41 +2,41 @@ using System;
 using MathOps.Methods.GoldenSectionSearch;
 using MathOps.Utilities;
 
-namespace MathOps.Methods.FastGradientMethod
+namespace MathOps.Methods.AcceleratedGradientDescent
 {
-    public class FastGradientMethodExecutor
+    public class AcceleratedGradientDescentExecutor
     {
         private readonly Boundaries stepBoundaries;
         private readonly Func<Vector2, decimal> function;
         private readonly TwoDimensionalGradient gradient;
         private readonly Func<Vector2, Vector2, decimal> stepFunction;
-        private readonly Action<FastGradientMethodIteration> observer;
+        private readonly Action<AcceleratedGradientDescentIteration> observer;
         private readonly int precision;
 
-        public FastGradientMethodExecutor(
+        public AcceleratedGradientDescentExecutor(
             Func<Vector2, decimal> function,
             TwoDimensionalGradient gradient,
-            Action<FastGradientMethodIteration> observer,
+            Action<AcceleratedGradientDescentIteration> observer,
             Func<Vector2, Vector2, decimal> stepFunction,
             int precision = 5) : this(function, gradient, observer, precision)
         {
             this.stepFunction = (a, b) => stepFunction(a, b).RoundTo(precision);
         }
 
-        public FastGradientMethodExecutor(
+        public AcceleratedGradientDescentExecutor(
             Func<Vector2, decimal> function,
             TwoDimensionalGradient gradient,
-            Action<FastGradientMethodIteration> observer,
+            Action<AcceleratedGradientDescentIteration> observer,
             Boundaries stepBoundaries,
             int precision = 5) : this(function, gradient, observer, precision)
         {
             this.stepBoundaries = stepBoundaries;
         }
 
-        public FastGradientMethodExecutor(
+        public AcceleratedGradientDescentExecutor(
             Func<Vector2, decimal> function,
             TwoDimensionalGradient gradient,
-            Action<FastGradientMethodIteration> observer,
+            Action<AcceleratedGradientDescentIteration> observer,
             int precision = 5)
         {
             this.function = v => function(v).RoundTo(precision);
@@ -54,7 +54,7 @@ namespace MathOps.Methods.FastGradientMethod
             var iterationArg = startPoint;
             for (var iteration = 0;; iteration++)
             {
-                var model = new FastGradientMethodIteration
+                var model = new AcceleratedGradientDescentIteration
                 {
                     Iteration = iteration,
                 };
@@ -73,7 +73,7 @@ namespace MathOps.Methods.FastGradientMethod
         private TwoDimensionalApproximateResult HandleFirstPart(
             decimal firstEpsilon,
             int maxIterationsCount,
-            FastGradientMethodIteration iteration,
+            AcceleratedGradientDescentIteration iteration,
             Vector2 iterationArg)
         {
             iteration.GradientIterationValue = gradient.Calculate(iterationArg, precision);
@@ -93,11 +93,11 @@ namespace MathOps.Methods.FastGradientMethod
 
         private TwoDimensionalApproximateResult HandleSecondPart(
             decimal secondEpsilon,
-            FastGradientMethodIteration iteration,
+            AcceleratedGradientDescentIteration iteration,
             Vector2 iterationArg)
         {
             iteration.Step = stepFunction?.Invoke(iterationArg, iteration.GradientIterationValue)
-                             ?? GetStepValue(iterationArg, iteration.GradientIterationValue, secondEpsilon);
+                             ?? GetStepValue(iterationArg, iteration.GradientIterationValue, secondEpsilon, iteration.Iteration);
             iteration.NextArg = iterationArg - iteration.Step.Value * gradient.Calculate(iterationArg, precision);
 
             if ((iteration.NextArg - iterationArg).Norm() < secondEpsilon
@@ -111,15 +111,17 @@ namespace MathOps.Methods.FastGradientMethod
                 };
             }
 
+            iteration.FuncValue = function(iterationArg);
+
             return null;
         }
 
-        private decimal GetStepValue(Vector2 arg, Vector2 gradientVal, decimal epsilon2)
+        private decimal GetStepValue(Vector2 arg, Vector2 gradientVal, decimal epsilon2, int iteration)
         {
             var goldenSectionExecutor = new GoldenSectionSearchExecutor(
                 t => function(arg - t * gradientVal).RoundTo(precision),
-                iteration => { });
-            return goldenSectionExecutor.Execute(epsilon2 / 2, stepBoundaries).Arg;
+                it => { });
+            return goldenSectionExecutor.Execute(epsilon2 / (2 + iteration), stepBoundaries).Arg;
         }
     }
 }

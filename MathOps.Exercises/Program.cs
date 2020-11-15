@@ -36,7 +36,7 @@ namespace MathOps.Exercises
                     NelderMeadMethodTaskRunner.Run();
                     break;
                 case 4:
-                    new FastGradientMethodRunner().Run();
+                    new AcceleratedGradientDescentRunner().Run();
                     break;
                 case 5:
                     new FletcherReevesMethodRunner().Run();
