@@ -8,32 +8,31 @@ namespace MathOps.Exercises.OneDimensional
     public static class DichotomyTaskRunner
     {
         public static void Run() => ExecuteInLoopWithPoll(RunInner);
-        
+
         private static void RunInner()
         {
-            var a = GetUserDouble("a");
+            var a = GetUserDecimal("a");
             var b = GetUserDecimal("b");
             var l = GetUserDecimal("l");
             var epsilon = GetUserDecimal("epsilon");
 
-            var left = GetUserDecimal("left boundary");
-            var right = GetUserDecimal("right boundary");
-            var verbose = UseVerboseLogging();
-
+            var boundaries = RequestBoundaries();
             Console.WriteLine($"Execute dichotomy method for function {a}/e^x + {b}*x");
 
-            decimal Function(decimal x)
-            {
-                return (decimal) (a / Math.Exp((double) x)) + b * x;
-            }
-
-            var executor = new DichotomyMethodExecutor(Function,
-                verbose
-                    ? VerboseObserver
-                    : (Action<DichotomyIterationInfo>) (info => { }));
-
-            var result = executor.ExecuteMethod(l, epsilon, new Boundaries(left, right));
+            var result = Execute(a, b, l, epsilon, boundaries);
             WriteResult(result);
+        }
+
+        public static OneDimensionalApproximateResult Execute(decimal a,
+            decimal b,
+            decimal precision,
+            decimal epsilon,
+            Boundaries boundaries)
+        {
+            var executor = new DichotomyMethodExecutor(OneDimensionalTaskFunc.BuildFunc(a, b),
+                (info => { }));
+
+            return executor.ExecuteMethod(precision, epsilon, boundaries);
         }
     }
 }

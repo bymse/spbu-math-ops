@@ -8,31 +8,28 @@ namespace MathOps.Exercises.OneDimensional
     public static class GoldenSectionSearchTaskRunner
     {
         public static void Run() => ExecuteInLoopWithPoll(RunInner);
-        
+
         private static void RunInner()
         {
-            var a = GetUserDouble("a");
+            var a = GetUserDecimal("a");
             var b = GetUserDecimal("b");
             var l = GetUserDecimal("l");
 
-            var left = GetUserDecimal("left boundary");
-            var right = GetUserDecimal("right boundary");
-            var verbose = UseVerboseLogging();
+            var boundaries = RequestBoundaries();
 
-            Console.WriteLine($"Execute golden-section search for function {a}/e^x + {b}*x");
-
-            decimal Function(decimal x)
-            {
-                return (decimal) (a / Math.Exp((double) x)) + b * x;
-            }
-
-            var executor = new GoldenSectionSearchExecutor(Function,
-                verbose
-                    ? VerboseObserver
-                    : (Action<GoldenSectionSearchIteration>) (info => { }));
-
-            var result = executor.Execute(l, new Boundaries(left, right));
+            var result = Execute(a, b, l, boundaries);
             WriteResult(result);
+        }
+
+        public static OneDimensionalApproximateResult Execute(decimal a,
+            decimal b,
+            decimal precision,
+            Boundaries boundaries)
+        {
+            var executor = new GoldenSectionSearchExecutor(OneDimensionalTaskFunc.BuildFunc(a, b),
+                (info => { }));
+
+            return executor.Execute(precision, boundaries);
         }
     }
 }
