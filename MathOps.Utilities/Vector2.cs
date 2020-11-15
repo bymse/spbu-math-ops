@@ -49,12 +49,10 @@ namespace MathOps.Utilities
 
         public static Vector2 operator -(Vector2 left, Vector2 right)
         {
-            var (firstLeft, secondLeft) = left;
-            var (firstRight, secondRight) = right;
             return new Vector2
             {
-                First = firstLeft - firstRight,
-                Second = secondLeft - secondRight
+                First = left.First - right.First,
+                Second = left.Second - right.Second
             };
         }
         

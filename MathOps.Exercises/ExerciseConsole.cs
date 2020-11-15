@@ -11,7 +11,15 @@ namespace MathOps.Exercises
             bool @continue;
             do
             {
-                action();
+                try
+                {
+                    action();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
                 Console.WriteLine("Enter \"q\" for exit");
                 @continue = !Console.ReadLine()?.Equals("q", StringComparison.OrdinalIgnoreCase) ?? true;
             } while (@continue);
@@ -56,12 +64,13 @@ namespace MathOps.Exercises
             Console.WriteLine($"Approximate left boundary: {result.Boundaries.Right}");
             Console.WriteLine($"Approximate right boundary: {result.Boundaries.Right}");
         }
-        
+
         public static void WriteResult(TwoDimensionalApproximateResult result)
         {
             Console.WriteLine($"Iterations count: {result.IterationsCount}");
             Console.WriteLine($"Approximate arg: {result.Arg}");
-            Console.WriteLine($"Function value: {result.Value}"); ;
+            Console.WriteLine($"Function value: {result.Value}");
+            ;
         }
 
         public static void VerboseObserver<T>(T iterationInfo)

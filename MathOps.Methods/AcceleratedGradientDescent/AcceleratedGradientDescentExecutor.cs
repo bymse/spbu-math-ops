@@ -52,6 +52,7 @@ namespace MathOps.Methods.AcceleratedGradientDescent
             int maxIterationsCount)
         {
             var iterationArg = startPoint;
+            var hadResult = false;
             for (var iteration = 0;; iteration++)
             {
                 var model = new AcceleratedGradientDescentIteration
@@ -59,12 +60,18 @@ namespace MathOps.Methods.AcceleratedGradientDescent
                     Iteration = iteration,
                 };
 
-                var result = HandleFirstPart(firstEpsilon, maxIterationsCount, model, iterationArg)
-                             ?? HandleSecondPart(secondEpsilon, model, iterationArg);
+                var result = HandleFirstPart(firstEpsilon, maxIterationsCount, model, iterationArg);
 
-                observer(model);
                 if (result != null)
                     return result;
+
+                result = HandleSecondPart(secondEpsilon, model, iterationArg);
+                
+                observer(model);
+                if (result != null && hadResult)
+                    return result;
+
+                hadResult = result != null;
 
                 iterationArg = model.NextArg;
             }
@@ -98,8 +105,9 @@ namespace MathOps.Methods.AcceleratedGradientDescent
         {
             iteration.Step = stepFunction?.Invoke(iterationArg, iteration.GradientIterationValue)
                              ?? GetStepValue(iterationArg, iteration.GradientIterationValue, secondEpsilon, iteration.Iteration);
-            iteration.NextArg = iterationArg - iteration.Step.Value * gradient.Calculate(iterationArg, precision);
+            iteration.NextArg = iterationArg - iteration.Step.Value * iteration.GradientIterationValue;
 
+            iteration.FuncValue = function(iterationArg);
             if ((iteration.NextArg - iterationArg).Norm() < secondEpsilon
                 && Math.Abs(function(iteration.NextArg) - function(iterationArg)) < secondEpsilon)
             {
@@ -111,7 +119,6 @@ namespace MathOps.Methods.AcceleratedGradientDescent
                 };
             }
 
-            iteration.FuncValue = function(iterationArg);
 
             return null;
         }
@@ -121,7 +128,8 @@ namespace MathOps.Methods.AcceleratedGradientDescent
             var goldenSectionExecutor = new GoldenSectionSearchExecutor(
                 t => function(arg - t * gradientVal).RoundTo(precision),
                 it => { });
-            return goldenSectionExecutor.Execute(epsilon2 / (2 + iteration), stepBoundaries).Arg;
+            var v = goldenSectionExecutor.Execute(epsilon2 / (3 + iteration), stepBoundaries).Arg;
+            return v;
         }
     }
 }

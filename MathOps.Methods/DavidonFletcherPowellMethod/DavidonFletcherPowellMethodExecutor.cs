@@ -96,17 +96,7 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
         {
             skipMatrix = false;
             iteration.GradientIterationValue = gradient.Calculate(iteration.IterationArg, precision);
-            if (iteration.GradientIterationValue.Norm() < firstEpsilon)
-            {
-                return new TwoDimensionalApproximateResult
-                {
-                    Arg = iteration.IterationArg,
-                    Value = function(iteration.IterationArg),
-                    IterationsCount = iteration.Iteration
-                };
-            }
-
-            if (iteration.Iteration >= maxIterationsCount)
+            if (iteration.GradientIterationValue.Norm() < firstEpsilon || iteration.Iteration >= maxIterationsCount)
             {
                 return new TwoDimensionalApproximateResult
                 {
@@ -143,7 +133,7 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
                              
                              ?? GetStepValue(iteration.IterationArg,
                                  iteration.GradientIterationValue,
-                                 iteration.IterationMatrix, secondEpsilon);
+                                 iteration.IterationMatrix, secondEpsilon, iteration.Iteration);
 
             iteration.NextIterationArg = iteration.IterationArg -
                                          iteration.IterationMatrix * iteration.Step *
@@ -206,12 +196,12 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
         }
 
         private decimal GetStepValue(Vector2 arg, Vector2 gradientVal, Vector2Matrix iterationIterationMatrix,
-            decimal epsilon2)
+            decimal epsilon2, int iteration)
         {
             var goldenSectionExecutor = new GoldenSectionSearchExecutor(
                 t => function(arg - t * (iterationIterationMatrix * gradientVal)).RoundTo(precision),
-                iteration => { });
-            return goldenSectionExecutor.Execute(epsilon2 / 10, stepBoundaries).Arg;
+                it => { });
+            return goldenSectionExecutor.Execute(epsilon2 / (2 + iteration + 1), stepBoundaries).Arg;
         }
     }
 }
