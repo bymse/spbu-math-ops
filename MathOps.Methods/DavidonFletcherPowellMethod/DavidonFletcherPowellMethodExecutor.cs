@@ -211,7 +211,7 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
             var goldenSectionExecutor = new GoldenSectionSearchExecutor(
                 t => function(arg - t * (iterationIterationMatrix * gradientVal)).RoundTo(precision),
                 iteration => { });
-            return goldenSectionExecutor.Execute(epsilon2 / 2, stepBoundaries).Arg;
+            return goldenSectionExecutor.Execute(epsilon2 / 10, stepBoundaries).Arg;
         }
     }
 }

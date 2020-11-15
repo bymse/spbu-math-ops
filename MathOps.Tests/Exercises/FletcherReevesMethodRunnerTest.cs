@@ -8,5 +8,6 @@ namespace MathOps.Tests.Exercises
     public class FletcherReevesMethodRunnerTest : MultiDimensionalMethodsTestBase<FletcherReevesMethodRunner>
     {
         protected override Vector2 SecondStartPoint => new Vector2(4, 4);
+        protected override Boundaries FirstBoundaries => new Boundaries(0 ,1);
     }
 }
