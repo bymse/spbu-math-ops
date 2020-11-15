@@ -18,6 +18,8 @@ namespace MathOps.Exercises
             Console.WriteLine("2. Golden-section search");
             Console.WriteLine("3. Nelder-Mead method");
             Console.WriteLine("4. Fast gradient method");
+            Console.WriteLine("5. Fletcher-Reeves method");
+            Console.WriteLine("6. Davidon-Fletcher-Powell method");
             
             Console.Write("Enter task number (1-6): ");
             var number = ExerciseConsole.GetNumberInput();
@@ -40,6 +42,7 @@ namespace MathOps.Exercises
                     new FletcherReevesMethodRunner().Run();
                     break;
                 case 6:
+                    new DavidonFletcherPowellMethodRunner().Run();
                     break;
                 default:
                     throw new ArgumentException();

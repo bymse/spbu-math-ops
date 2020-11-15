@@ -1,7 +1,8 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7df30a69_002Dff9f_002D4992_002D8785_002D03129975b01d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="NelderMeadMethodExecutorTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a5b1cc3f_002D1856_002D4776_002D899c_002Dd9cc7816e941/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="FastGradientMethodRunnerTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Users\bymse\Desktop\Prog\c#\MathOps\MathOps.Tests" Presentation="&amp;lt;MathOps.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Coeff/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Coeffs/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Davidon/@EntryIndexedValue">True</s:Boolean>
