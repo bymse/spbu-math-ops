@@ -4,7 +4,7 @@ using MathOps.Utilities;
 
 namespace MathOps.Exercises.MultiDimensional
 {
-    public class FletcherReevesMethodRunner : TwoEpsilonsMethodsBase<FletcherReevesMethodIteration>
+    public class FletcherReevesMethodRunner : MultiDimensionalMethodsBase<FletcherReevesMethodIteration>
     {
         protected override TwoDimensionalApproximateResult ExecuteMethod(
             Vector2 startPoint,

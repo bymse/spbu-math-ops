@@ -6,7 +6,7 @@ using static MathOps.Exercises.MultiDimensional.MultiDimensionalFuncs;
 
 namespace MathOps.Exercises.MultiDimensional
 {
-    public abstract class TwoEpsilonsMethodsBase<T>
+    public abstract class MultiDimensionalMethodsBase<T>
     {
         public Action<T> Observer { get; set; } = obj => { }; 
         

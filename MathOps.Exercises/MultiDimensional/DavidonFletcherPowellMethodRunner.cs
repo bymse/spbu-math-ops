@@ -4,7 +4,7 @@ using MathOps.Utilities;
 
 namespace MathOps.Exercises.MultiDimensional
 {
-    public class DavidonFletcherPowellMethodRunner : TwoEpsilonsMethodsBase<DavidonFletcherPowellMethodIteration>
+    public class DavidonFletcherPowellMethodRunner : MultiDimensionalMethodsBase<DavidonFletcherPowellMethodIteration>
     {
         protected override TwoDimensionalApproximateResult ExecuteMethod(
             Vector2 startPoint,

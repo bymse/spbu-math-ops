@@ -4,7 +4,7 @@ using MathOps.Utilities;
 
 namespace MathOps.Exercises.MultiDimensional
 {
-    public class AcceleratedGradientDescentRunner : TwoEpsilonsMethodsBase<AcceleratedGradientDescentIteration>
+    public class AcceleratedGradientDescentRunner : MultiDimensionalMethodsBase<AcceleratedGradientDescentIteration>
     {
         protected override TwoDimensionalApproximateResult ExecuteMethod(
             Vector2 startPoint,

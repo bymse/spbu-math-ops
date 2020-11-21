@@ -37,6 +37,7 @@ namespace MathOps.Methods.Dichotomy
                 Iteration = iteration,
                 LeftArg = (boundaries.Left + boundaries.Right - epsilon) / 2,
                 RightArg = (boundaries.Left + boundaries.Right + epsilon) / 2,
+                IterationBoundaries = boundaries
             };
 
             iterationInfo.LeftArgResult = function(iterationInfo.LeftArg);

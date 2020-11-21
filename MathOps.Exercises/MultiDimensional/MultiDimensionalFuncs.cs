@@ -24,7 +24,7 @@ namespace MathOps.Exercises.MultiDimensional
             First = vector2 =>
             {
                 var (x, y) = vector2;
-                return 2 * (-1 + x + 200 * x.Square() * x - 200 * x * y);
+                return 2 * (200 * x.Square() * x - 200 * x * y + x - 1);
             },
             Second = vector2 => 200 * (vector2.Second - vector2.First.Square())
         };
@@ -32,10 +32,7 @@ namespace MathOps.Exercises.MultiDimensional
         public static Func<Vector2, decimal> SecondFunc => vector =>
         {
             var (first, second) = vector;
-            var leftPart = first.Square() + second - 11;
-            var rightPart = first + second.Square() - 7;
-
-            return leftPart.Square() + rightPart.Square();
+            return (first.Square() + second - 11).Square() + (first + second.Square() - 7).Square();
         };
 
         public static TwoDimensionalGradient SecondFuncGradient => new TwoDimensionalGradient

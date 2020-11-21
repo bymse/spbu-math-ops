@@ -16,19 +16,7 @@ namespace MathOps.Exercises.MultiDimensional
         private static void Action()
         {
             var numb = MultiDimensionalFuncs.GetFuncNumber();
-            switch (numb)
-            {
-                case 1:
-                    RunInner(MultiDimensionalFuncs.FirstFunc);
-                    break;
-                case 2:
-                    RunInner(MultiDimensionalFuncs.SecondFunc);
-                    break;
-            }
-        }
-
-        private static void RunInner(Func<Vector2, decimal> function)
-        {
+            
             var vertexes = new List<Vector2>();
             for (var index = 0; index < 3; index++)
             {
@@ -45,9 +33,35 @@ namespace MathOps.Exercises.MultiDimensional
             };
 
             var boundaryCoeff = GetUserDecimal("boundary coefficient");
-            var executor = new NelderMeadMethodExecutor(function, v => { });
-            var result = executor.Execute(vertexes, coeffs, boundaryCoeff);
-            WriteResult(result);
+
+            switch (numb)
+            {
+                case 1:
+                    WriteResult(RunForFirst(vertexes, coeffs, boundaryCoeff, iteration => {}));
+                    break;
+                case 2:
+                    WriteResult(RunForSecond(vertexes, coeffs, boundaryCoeff, iteration => {}));
+                    break;
+            }
         }
+
+        public static TwoDimensionalApproximateResult RunForFirst(
+            IReadOnlyList<Vector2> startVertexes,
+            NelderMeadMethodCoeffs coeffs,
+            decimal boundaryCoeff, Action<NelderMeadMethodIteration> observer)
+        {
+            var executor = new NelderMeadMethodExecutor(MultiDimensionalFuncs.FirstFunc, observer);
+            return executor.Execute(startVertexes, coeffs, boundaryCoeff);
+        }
+
+        public static TwoDimensionalApproximateResult RunForSecond(
+            IReadOnlyList<Vector2> startVertexes,
+            NelderMeadMethodCoeffs coeffs,
+            decimal boundaryCoeff, Action<NelderMeadMethodIteration> observer)
+        {
+            var executor = new NelderMeadMethodExecutor(MultiDimensionalFuncs.SecondFunc, observer);
+            return executor.Execute(startVertexes, coeffs, boundaryCoeff);
+        }
+
     }
 }

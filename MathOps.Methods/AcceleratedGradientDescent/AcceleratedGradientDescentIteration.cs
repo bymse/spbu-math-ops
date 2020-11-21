@@ -11,6 +11,7 @@ namespace MathOps.Methods.AcceleratedGradientDescent
         public decimal? Step { get; set; }
         
         public Vector2 NextArg { get; set; }
+        public Vector2 Arg { get; set; }
         
         public decimal FuncValue { get; set; }
     }

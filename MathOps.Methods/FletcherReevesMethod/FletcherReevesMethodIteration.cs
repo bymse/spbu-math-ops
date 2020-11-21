@@ -15,5 +15,8 @@ namespace MathOps.Methods.FletcherReevesMethod
         public Vector2 Direction { get; set; }  
         
         public Vector2 NextArg { get; set; }
+        public Vector2 Arg { get; set; }
+        
+        public decimal FuncVal { get; set; }
     }
 }

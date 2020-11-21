@@ -17,6 +17,7 @@ namespace MathOps.Methods.NelderMeadMethod
         public Vector2? ContractedVertex { get; set; }
 
         public IReadOnlyList<Vector2> NextVertexList { get; set; }
+        public IReadOnlyList<Vector2> VertexList { get; set; }
 
 
         public void Deconstruct(out Vector2 min, out Vector2 max, out Vector2 balance) =>

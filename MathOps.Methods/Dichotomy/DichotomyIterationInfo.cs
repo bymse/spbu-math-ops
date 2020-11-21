@@ -11,6 +11,7 @@ namespace MathOps.Methods.Dichotomy
         
         public decimal LeftArgResult { get; set; }
         public decimal RightArgResult { get; set; }
+        public Boundaries IterationBoundaries { get; set; }
         
         public Boundaries NextIterationBoundaries { get; set; }
     }

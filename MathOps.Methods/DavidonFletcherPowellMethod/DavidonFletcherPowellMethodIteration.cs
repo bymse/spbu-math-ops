@@ -15,5 +15,7 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
         
         public Vector2 NextIterationArg { get; set; }
         public Vector2 IterationArg { get; set; }
+        
+        public decimal FuncVal { get; set; }
     }
 }

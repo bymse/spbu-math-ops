@@ -133,7 +133,7 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
                              
                              ?? GetStepValue(iteration.IterationArg,
                                  iteration.GradientIterationValue,
-                                 iteration.IterationMatrix, secondEpsilon, iteration.Iteration);
+                                 iteration.IterationMatrix, secondEpsilon);
 
             iteration.NextIterationArg = iteration.IterationArg -
                                          iteration.IterationMatrix * iteration.Step *
@@ -142,6 +142,8 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
             iteration.NextIterationArg = new Vector2(iteration.NextIterationArg.First.RoundTo(precision),
                 iteration.NextIterationArg.Second.RoundTo(precision));
 
+            iteration.FuncVal = function(iteration.IterationArg);
+            
             if ((iteration.NextIterationArg - iteration.IterationArg).Norm() < secondEpsilon
                 && Math.Abs(function(iteration.NextIterationArg) - function(iteration.IterationArg)) < secondEpsilon)
             {
@@ -196,12 +198,12 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
         }
 
         private decimal GetStepValue(Vector2 arg, Vector2 gradientVal, Vector2Matrix iterationIterationMatrix,
-            decimal epsilon2, int iteration)
+            decimal epsilon2)
         {
             var goldenSectionExecutor = new GoldenSectionSearchExecutor(
                 t => function(arg - t * (iterationIterationMatrix * gradientVal)).RoundTo(precision),
                 it => { });
-            return goldenSectionExecutor.Execute(epsilon2 / (2 + iteration + 1), stepBoundaries).Arg;
+            return goldenSectionExecutor.Execute(0.0001M, stepBoundaries).Arg;
         }
     }
 }

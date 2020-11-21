@@ -93,6 +93,7 @@ namespace MathOps.Methods.NelderMeadMethod
             IReadOnlyList<Vector2> inputVertexes,
             VertexesModificationsHandler handler)
         {
+            iteration.VertexList = inputVertexes;
             var vertexes = handler.ModifyVertexes(iteration, inputVertexes);
             iteration.NextVertexList = vertexes;
             observer(iteration);

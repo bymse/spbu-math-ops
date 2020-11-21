@@ -61,6 +61,7 @@ namespace MathOps.Methods.FletcherReevesMethod
                 var model = new FletcherReevesMethodIteration
                 {
                     Iteration = iteration,
+                    Arg = prevIteration.NextArg,
                 };
 
                 var result = HandleFirstPart(firstEpsilon, maxIterationsCount, model, prevIteration.NextArg);
@@ -118,9 +119,11 @@ namespace MathOps.Methods.FletcherReevesMethod
             }
             
             iteration.Step = stepFunction?.Invoke(prevIteration.NextArg, iteration.Direction)
-                             ?? GetStepValue(prevIteration.NextArg, iteration.Direction, secondEpsilon, iteration.Iteration);
+                             ?? GetStepValue(prevIteration.NextArg, iteration.Direction, secondEpsilon);
 
             iteration.NextArg = prevIteration.NextArg + iteration.Step.Value * iteration.Direction;
+
+            iteration.FuncVal = function(prevIteration.NextArg);
 
             if ((iteration.NextArg - prevIteration.NextArg).Norm() < secondEpsilon
                 && Math.Abs(function(iteration.NextArg) - function(prevIteration.NextArg)) < secondEpsilon)
@@ -137,12 +140,13 @@ namespace MathOps.Methods.FletcherReevesMethod
         }
 
 
-        private decimal GetStepValue(Vector2 arg, Vector2 direction, decimal epsilon2, int iteration)
+        private decimal GetStepValue(Vector2 arg, Vector2 direction, decimal epsilon)
         {
             var goldenSectionExecutor = new GoldenSectionSearchExecutor(
                 t => function(arg + t * direction).RoundTo(precision),
                 iteration => { });
-            return goldenSectionExecutor.Execute(epsilon2 / (2 + iteration + 1), stepBoundaries).Arg;
+            
+            return goldenSectionExecutor.Execute(0.0001M, stepBoundaries).Arg;
         }
     }
 }

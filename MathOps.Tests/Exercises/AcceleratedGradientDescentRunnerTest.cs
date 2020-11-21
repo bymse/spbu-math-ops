@@ -10,13 +10,18 @@ namespace MathOps.Tests.Exercises
     [TestFixture]
     public class AcceleratedGradientDescentRunnerTest : MultiDimensionalMethodsTestBase<AcceleratedGradientDescentRunner, AcceleratedGradientDescentIteration>
     {
-        protected override Boundaries FirstBoundaries => new Boundaries(0,1);
-        protected override Vector2 FirstStartPoint => new Vector2(-1, -1);
+        protected override decimal FirstEpsilonForFirst => 0.0000005M;
+        protected override decimal SecondEpsilonForFirst => 0.000001M;
+
+        protected override Boundaries FirstBoundaries => new Boundaries(0, 1000);
 
         protected override void Observer(AcceleratedGradientDescentIteration iteration)
         {
-            Console.WriteLine($"Gradient value: {iteration.GradientIterationValue}");
-            Console.WriteLine($"Func value: {iteration.FuncValue}");
+            Console.WriteLine($"Итерация {iteration.Iteration}");
+            Console.WriteLine($"Норма градиента: {iteration.GradientIterationValue.Norm()}");
+            Console.WriteLine($"Значение аргумента: {iteration.Arg}");
+            
+            Console.WriteLine();
         }
     }
 }

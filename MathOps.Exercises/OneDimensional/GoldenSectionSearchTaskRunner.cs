@@ -17,17 +17,17 @@ namespace MathOps.Exercises.OneDimensional
 
             var boundaries = RequestBoundaries();
 
-            var result = Execute(a, b, l, boundaries);
+            var result = Execute(a, b, l, boundaries, iteration => {});
             WriteResult(result);
         }
 
         public static OneDimensionalApproximateResult Execute(decimal a,
             decimal b,
             decimal precision,
-            Boundaries boundaries)
+            Boundaries boundaries,
+            Action<GoldenSectionSearchIteration> observer)
         {
-            var executor = new GoldenSectionSearchExecutor(OneDimensionalTaskFunc.BuildFunc(a, b),
-                (info => { }));
+            var executor = new GoldenSectionSearchExecutor(OneDimensionalTaskFunc.BuildFunc(a, b), observer);
 
             return executor.Execute(precision, boundaries);
         }

@@ -20,6 +20,7 @@ namespace MathOps.Tests.Exercises
         public void Test()
         {
             var result = Execute(A, B, PRECISION, Boundaries);
+            Console.WriteLine($"Результат. Точка: {result.Arg}");
             result.Arg.Should().BeApproximately(-0.693M, PRECISION);
         }
     }

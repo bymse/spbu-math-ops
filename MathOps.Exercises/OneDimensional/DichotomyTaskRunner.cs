@@ -19,7 +19,7 @@ namespace MathOps.Exercises.OneDimensional
             var boundaries = RequestBoundaries();
             Console.WriteLine($"Execute dichotomy method for function {a}/e^x + {b}*x");
 
-            var result = Execute(a, b, l, epsilon, boundaries);
+            var result = Execute(a, b, l, epsilon, boundaries, (info => { }));
             WriteResult(result);
         }
 
@@ -27,10 +27,11 @@ namespace MathOps.Exercises.OneDimensional
             decimal b,
             decimal precision,
             decimal epsilon,
-            Boundaries boundaries)
+            Boundaries boundaries,
+            Action<DichotomyIterationInfo> observer)
         {
             var executor = new DichotomyMethodExecutor(OneDimensionalTaskFunc.BuildFunc(a, b),
-                (info => { }));
+                observer);
 
             return executor.ExecuteMethod(precision, epsilon, boundaries);
         }
