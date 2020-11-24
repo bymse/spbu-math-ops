@@ -18,7 +18,7 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
             TwoDimensionalGradient gradient,
             Action<DavidonFletcherPowellMethodIteration> observer,
             Boundaries stepBoundaries,
-            int precision = 5) : this(function, gradient, observer, precision)
+            int precision = 28) : this(function, gradient, observer, precision)
         {
             this.stepBoundaries = stepBoundaries;
         }
@@ -30,16 +30,16 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
             Func<Vector2, Vector2, Vector2Matrix, decimal> stepFunction,
             int precision = 5) : this(function, gradient, observer, precision)
         {
-            this.stepFunction = (v, a, b) => stepFunction(v, a, b).RoundTo(precision);
+            this.stepFunction = (v, a, b) => stepFunction(v, a, b);
         }
 
         public DavidonFletcherPowellMethodExecutor(
             Func<Vector2, decimal> function,
             TwoDimensionalGradient gradient,
             Action<DavidonFletcherPowellMethodIteration> observer,
-            int precision = 5)
+            int precision = 28)
         {
-            this.function = v => function(v).RoundTo(precision);
+            this.function = v => function(v);
             this.observer = observer;
             this.precision = precision;
             this.gradient = gradient;
@@ -139,8 +139,8 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
                                          iteration.IterationMatrix * iteration.Step *
                                          iteration.GradientIterationValue;
 
-            iteration.NextIterationArg = new Vector2(iteration.NextIterationArg.First.RoundTo(precision),
-                iteration.NextIterationArg.Second.RoundTo(precision));
+            iteration.NextIterationArg = new Vector2(iteration.NextIterationArg.First,
+                iteration.NextIterationArg.Second);
 
             iteration.FuncVal = function(iteration.IterationArg);
             
@@ -187,12 +187,12 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
             iteration.IterationAdditionalMatrix = leftPart - (rightPartNumerator / rightPartDenominator);
 
             iteration.IterationAdditionalMatrix.FirstLine
-                = new Vector2(iteration.IterationAdditionalMatrix.FirstLine.First.RoundTo(precision),
-                    iteration.IterationAdditionalMatrix.FirstLine.Second.RoundTo(precision));
+                = new Vector2(iteration.IterationAdditionalMatrix.FirstLine.First,
+                    iteration.IterationAdditionalMatrix.FirstLine.Second);
 
             iteration.IterationAdditionalMatrix.SecondLine
-                = new Vector2(iteration.IterationAdditionalMatrix.SecondLine.First.RoundTo(precision),
-                    iteration.IterationAdditionalMatrix.SecondLine.Second.RoundTo(precision));
+                = new Vector2(iteration.IterationAdditionalMatrix.SecondLine.First,
+                    iteration.IterationAdditionalMatrix.SecondLine.Second);
 
             iteration.IterationMatrix = prevIteration.IterationMatrix + iteration.IterationAdditionalMatrix;
         }
@@ -201,7 +201,7 @@ namespace MathOps.Methods.DavidonFletcherPowellMethod
             decimal epsilon2)
         {
             var goldenSectionExecutor = new GoldenSectionSearchExecutor(
-                t => function(arg - t * (iterationIterationMatrix * gradientVal)).RoundTo(precision),
+                t => function(arg - t * (iterationIterationMatrix * gradientVal)),
                 it => { });
             return goldenSectionExecutor.Execute(0.0001M, stepBoundaries).Arg;
         }

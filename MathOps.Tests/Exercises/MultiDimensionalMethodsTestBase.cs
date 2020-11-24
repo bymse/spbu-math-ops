@@ -10,10 +10,10 @@ namespace MathOps.Tests.Exercises
     [TestFixture]
     public abstract class MultiDimensionalMethodsTestBase<T, TI> where T : MultiDimensionalMethodsBase<TI>, new()
     {
-        private const decimal FIRST_EPSILON = 0.1M;
+        private const decimal FIRST_EPSILON = 0.0000015M;
         
-        protected virtual decimal SecondEpsilonForFirst => 0.15M;
-        protected virtual decimal SecondEpsilonForSecond => 0.15M;
+        protected virtual decimal SecondEpsilonForFirst => 0.0000001M;
+        protected virtual decimal SecondEpsilonForSecond => 0.0000001M;
         protected virtual decimal FirstEpsilonForFirst => FIRST_EPSILON;
         
         private const int MAX_ITERATIONS_COUNT = 9000;

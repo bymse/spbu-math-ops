@@ -7,6 +7,7 @@ namespace MathOps.Tests.Exercises
     public class DavidonFletcherPowellMethodRunnerTest : MultiDimensionalMethodsTestBase<
         DavidonFletcherPowellMethodRunner, DavidonFletcherPowellMethodIteration>
     {
+
         protected override void Observer(DavidonFletcherPowellMethodIteration iteration)
         {
             Console.WriteLine($"Итерация {iteration.Iteration}");

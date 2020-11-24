@@ -20,7 +20,7 @@ namespace MathOps.Methods.AcceleratedGradientDescent
             Func<Vector2, Vector2, decimal> stepFunction,
             int precision = 28) : this(function, gradient, observer, precision)
         {
-            this.stepFunction = (a, b) => stepFunction(a, b).RoundTo(precision);
+            this.stepFunction = (a, b) => stepFunction(a, b);
         }
 
         public AcceleratedGradientDescentExecutor(
